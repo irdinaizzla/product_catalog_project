@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-/// A "slide to unlock" splash gate: drag the handle to the end of the
-/// track to enter the catalog. Purely presentational app flow — it
-/// doesn't gate any real security.
+/// A "slide to unlock" splash gate: drag the handle to the end of the track to enter the catalog.
+/// Presentational app flow
 class UnlockScreen extends StatefulWidget {
   const UnlockScreen({super.key, required this.onUnlocked});
 
@@ -54,36 +53,49 @@ class _UnlockScreenState extends State<UnlockScreen>
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    // Black canvas, white type, and a single vivid accent on the
+    // drag handle so the mostly-monochrome screen still has a focal
+    // point telling the user where to interact.
+    final accent = colorScheme.tertiary;
 
     return Scaffold(
-      backgroundColor: colorScheme.primaryContainer,
+      backgroundColor: Color(0xFF081549),
       body: SafeArea(
         child: Column(
           children: [
             const Spacer(flex: 3),
-            Icon(Icons.storefront_rounded,
-                size: 96, color: colorScheme.onPrimaryContainer),
-            const SizedBox(height: 16),
-            Text(
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.white24, width: 1.5),
+              ),
+              child: const Icon(Icons.storefront_rounded,
+                  size: 64, color: Colors.white),
+            ),
+            const SizedBox(height: 20),
+            const Text(
               'Product Catalog',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: colorScheme.onPrimaryContainer,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
+                letterSpacing: 0.2,
               ),
             ),
             const SizedBox(height: 4),
-            Text(
+            const Text(
               'Slide to browse the catalog',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onPrimaryContainer.withValues(alpha: 0.7),
-              ),
+              style: TextStyle(color: Colors.white60, fontSize: 14),
             ),
             const Spacer(flex: 4),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+              padding:
+              const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  _maxDrag = constraints.maxWidth - _handleSize - _trackPadding * 2;
+                  _maxDrag =
+                      constraints.maxWidth - _handleSize - _trackPadding * 2;
 
                   return AnimatedBuilder(
                     animation: _controller,
@@ -95,8 +107,9 @@ class _UnlockScreenState extends State<UnlockScreen>
                         child: Container(
                           height: _handleSize + _trackPadding * 2,
                           decoration: BoxDecoration(
-                            color: colorScheme.surface,
+                            color: const Color(0xFF1C1C1C),
                             borderRadius: BorderRadius.circular(999),
+                            border: Border.all(color: Colors.white12),
                           ),
                           child: Stack(
                             alignment: Alignment.centerLeft,
@@ -104,11 +117,10 @@ class _UnlockScreenState extends State<UnlockScreen>
                               Center(
                                 child: Opacity(
                                   opacity: 1 - _controller.value,
-                                  child: Text(
+                                  child: const Text(
                                     'Slide to unlock',
                                     style: TextStyle(
-                                      color:
-                                      colorScheme.onSurface.withValues(alpha: 0.5),
+                                      color: Colors.white54,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -125,11 +137,21 @@ class _UnlockScreenState extends State<UnlockScreen>
                                       width: _handleSize,
                                       height: _handleSize,
                                       decoration: BoxDecoration(
-                                        color: colorScheme.primary,
+                                        color: accent,
                                         shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: accent.withValues(
+                                                alpha: 0.45),
+                                            blurRadius: 16,
+                                            offset: const Offset(0, 4),
+                                          ),
+                                        ],
                                       ),
-                                      child: Icon(Icons.arrow_forward_rounded,
-                                          color: colorScheme.onPrimary),
+                                      child: const Icon(
+                                        Icons.arrow_forward_rounded,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
