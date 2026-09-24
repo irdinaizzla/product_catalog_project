@@ -1,4 +1,4 @@
-# Beauty Essentials
+# Product Catalog
 
 A small Flutter product catalog app. 
 You slide to unlock, browse a list of products, search, sort, filter by price, open a product, and add things to a bag. 
@@ -25,6 +25,16 @@ I tested on the Android 15 emulator, Chrome, and Windows.
 - `http` for the API calls
 - `google_fonts` (Poppins, Playfair Display, Lobster Two)
 - DummyJSON as the backend
+
+## AI usage
+
+I used AI (Claude) as a helper, not to build the app for me.
+
+- Ideas and guidance: talking through how to structure the app and handle things like pagination and filtering.
+- README: AI helped draft the structure, and I edited it to match my project.
+- Tests: AI helped write the initial unit and widget tests, which I ran, checked and fixed (for example the unlock drag test).
+
+The app code in `lib/`, the folder structure and the architecture decisions are mine.
 
 ## Folder layout
 
