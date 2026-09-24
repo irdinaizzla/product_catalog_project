@@ -115,7 +115,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         children: [
           Expanded(
             child: Text(
-              'Beauty Essentials',
+              'Product Catalog',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.lobsterTwo(

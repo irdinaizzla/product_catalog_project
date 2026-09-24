@@ -97,7 +97,7 @@ class _UnlockScreenState extends State<UnlockScreen>
                   _EmbossedTitle(ink: ink),
                   SizedBox(height: 10),
                   Text(
-                    'Find your glow',
+                    'Find your items',
                     style: TextStyle(
                         color: ink.withValues(alpha: 0.6), fontSize: 14),
                   ),
@@ -350,10 +350,10 @@ class _EmbossedTitle extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Beauty', style: _style),
+        Text('Product', style: _style),
         Padding(
           padding: const EdgeInsets.only(),
-          child: Text('Essentials', style: _style),
+          child: Text('Catalog', style: _style),
         ),
       ],
     );
