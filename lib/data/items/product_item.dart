@@ -3,23 +3,36 @@ import '../models/product.dart';
 
 /// Provides access to product data, wrapping the raw API responses into typed [Product] and [ProductListResult] models.
 class ProductRepository {
-  /// Fetches a page of all products.
+  /// Fetches a page of all products (optionally sorted).
   Future<ProductListResult> fetchProducts({
     int limit = 20,
     int skip = 0,
+    String? sortBy,
+    String? order,
   }) async {
-    final json = await ItemDataApi.getProducts(limit: limit, skip: skip);
+    final json = await ItemDataApi.getProducts(
+      limit: limit,
+      skip: skip,
+      sortBy: sortBy,
+      order: order,
+    );
     return _parseListResponse(json, fallbackSkip: skip, fallbackLimit: limit);
   }
 
-  /// Fetches a page of products matching a search query.
   Future<ProductListResult> searchProducts(
       String query, {
         int limit = 20,
         int skip = 0,
+        String? sortBy,
+        String? order,
       }) async {
-    final json =
-    await ItemDataApi.searchProducts(query, limit: limit, skip: skip);
+    final json = await ItemDataApi.searchProducts(
+      query,
+      limit: limit,
+      skip: skip,
+      sortBy: sortBy,
+      order: order,
+    );
     return _parseListResponse(json, fallbackSkip: skip, fallbackLimit: limit);
   }
 
@@ -29,7 +42,6 @@ class ProductRepository {
     return Product.fromJson(json);
   }
 
-  /// Converts a raw list-response JSON map into a [ProductListResult]
   ProductListResult _parseListResponse(
       Map<String, dynamic> json, {
         required int fallbackSkip,

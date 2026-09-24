@@ -4,6 +4,9 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../controllers/cart_controller.dart';
+import '../screens/bag_screen.dart';
+
 /// Shared palette (matches the unlock screen).
 class AppColors {
   static const blue = Color(0xFFA9DDF3);
@@ -91,7 +94,6 @@ class _BubblesPainter extends CustomPainter {
 }
 
 /// Frosted-glass panel: translucent gradient, bright rim, soft shadow.
-/// Set [blur] > 0 for a real backdrop blur (use sparingly in long lists).
 class GlassContainer extends StatelessWidget {
   const GlassContainer({
     super.key,
@@ -403,3 +405,81 @@ class GlassBackButton extends StatelessWidget {
   }
 }
 
+/// Glass bag icon with a live item-count badge. Opens the bag screen.
+class BagButton extends StatelessWidget {
+  const BagButton({super.key, this.size = 44});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final cart = CartController.instance;
+
+    return ListenableBuilder(
+      listenable: cart,
+      builder: (context, _) {
+        final count = cart.totalItems;
+        return PressableScale(
+          onTap: () =>
+              Navigator.of(context).push(fadeSlideRoute(const BagScreen())),
+          child: SizedBox(
+            width: size,
+            height: size,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Positioned.fill(
+                  child: GlassContainer(
+                    radius: size / 2,
+                    child: const Center(
+                      child: Icon(
+                        Icons.shopping_bag_outlined,
+                        size: 22,
+                        color: AppColors.navy,
+                      ),
+                    ),
+                  ),
+                ),
+                if (count > 0)
+                  Positioned(
+                    top: -4,
+                    right: -4,
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 250),
+                      transitionBuilder: (child, animation) => ScaleTransition(
+                        scale: CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.elasticOut,
+                        ),
+                        child: child,
+                      ),
+                      child: Container(
+                        key: ValueKey(count),
+                        constraints: const BoxConstraints(minWidth: 20),
+                        height: 20,
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColors.rose,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.white, width: 1.5),
+                        ),
+                        child: Text(
+                          '$count',
+                          style: GoogleFonts.poppins(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

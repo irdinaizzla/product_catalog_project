@@ -3,17 +3,24 @@ import 'service_api.dart';
 class ItemDataApi {
   /// Get products
   ///
-  /// GET https://dummyjson.com/products?limit=20&skip=0
+  /// GET https://dummyjson.com/products?limit=20&skip=0&sortBy=price&order=asc
   static Future<Map<String, dynamic>> getProducts({
     int limit = 20,
     int skip = 0,
+    String? sortBy,
+    String? order,
   }) {
+    final queryParams = <String, String>{
+      'limit': limit.toString(),
+      'skip': skip.toString(),
+    };
+
+    if (sortBy != null) queryParams['sortBy'] = sortBy;
+    if (order != null) queryParams['order'] = order;
+
     return ServiceApi.get(
       'products',
-      queryParams: {
-        'limit': limit.toString(),
-        'skip': skip.toString(),
-      },
+      queryParams: queryParams,
     );
   }
 
@@ -28,11 +35,13 @@ class ItemDataApi {
 
   /// Search products
   ///
-  /// GET https://dummyjson.com/products/search?q=phone
+  /// GET https://dummyjson.com/products/search?q=phone&sortBy=title&order=asc
   static Future<Map<String, dynamic>> searchProducts(
       String query, {
         int? limit,
         int? skip,
+        String? sortBy,
+        String? order,
       }) {
     final queryParams = <String, String>{
       'q': query,
@@ -45,6 +54,9 @@ class ItemDataApi {
     if (skip != null) {
       queryParams['skip'] = skip.toString();
     }
+
+    if (sortBy != null) queryParams['sortBy'] = sortBy;
+    if (order != null) queryParams['order'] = order;
 
     return ServiceApi.get(
       'products/search',

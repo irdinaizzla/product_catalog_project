@@ -71,7 +71,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 16),
-
+            child: Center(child: BagButton(size: 42)),
           ),
         ],
       ),
