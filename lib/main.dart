@@ -1,29 +1,34 @@
 import 'package:flutter/material.dart';
 
-import 'unlock_screen.dart';
+import 'view/screens/product_list_screen.dart';
+import 'view/screens/unlock_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-const Color _accent = Color(0xFFFF5A36);
+// Pastel Paddle Pop palette
+const Color _paddlepopBlue = Color(0xFFA9DDF3);   // pastel sky blue
+const Color _paddlepopPink = Color(0xFFFFB5C2);   // pastel raspberry
+const Color _paddlepopOrange = Color(0xFFFFD3A5); // pastel citrus
+const Color _inkNavy = Color(0xFF2B3A67);         // soft navy for text/contrast
 
 final ColorScheme _catalogColorScheme = const ColorScheme.light(
-  primary: Color(0xFF081549),
-  onPrimary: Colors.white,
-  primaryContainer: Color(0xFF081549),
-  onPrimaryContainer: Colors.white,
-  secondary: Color(0xFFEDEDED),
-  onSecondary: Color(0xFF081549),
-  secondaryContainer: Color(0xFFF5F5F5),
-  onSecondaryContainer: Color(0xFF081549),
-  tertiary: _accent,
-  onTertiary: Colors.white,
+  primary: _paddlepopBlue,
+  onPrimary: _inkNavy,
+  primaryContainer: _paddlepopBlue,
+  onPrimaryContainer: _inkNavy,
+  secondary: Color(0xFFFFF3D6), // pastel yellow-cream
+  onSecondary: _inkNavy,
+  secondaryContainer: Color(0xFFFFF8E8),
+  onSecondaryContainer: _inkNavy,
+  tertiary: _paddlepopPink,
+  onTertiary: _inkNavy,
   surface: Colors.white,
-  onSurface: Color(0xFF081549),
-  surfaceContainerHighest: Color(0xFFF2F2F2),
-  outline: Color(0xFFBDBDBD),
-  error: Color(0xFFE53935),
+  onSurface: _inkNavy,
+  surfaceContainerHighest: Color(0xFFFDF6EC),
+  outline: Color(0xFFE0D7C6),
+  error: Color(0xFFE58B8B),
   onError: Colors.white,
 );
 
@@ -39,31 +44,33 @@ class MyApp extends StatelessWidget {
         colorScheme: _catalogColorScheme,
         useMaterial3: true,
         scaffoldBackgroundColor: _catalogColorScheme.surface,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xFF081549),
-          foregroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: _paddlepopBlue,
+          foregroundColor: _inkNavy,
           elevation: 0,
         ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: _accent,
-          foregroundColor: Colors.white,
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: _paddlepopOrange,
+          foregroundColor: _inkNavy,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF081549),
-            foregroundColor: Colors.white,
+            backgroundColor: _paddlepopBlue,
+            foregroundColor: _inkNavy,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
         ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(foregroundColor: _accent),
+        textButtonTheme: const TextButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: WidgetStatePropertyAll(_paddlepopPink),
+          ),
         ),
         chipTheme: ChipThemeData(
-          backgroundColor: const Color(0xFFF2F2F2),
-          labelStyle: const TextStyle(color: Color(0xFF081549)),
-          selectedColor: _accent,
+          backgroundColor: const Color(0xFFFDF6EC),
+          labelStyle: const TextStyle(color: _inkNavy),
+          selectedColor: _paddlepopOrange,
           side: BorderSide.none,
         ),
       ),
@@ -87,7 +94,9 @@ class _AppGateState extends State<AppGate> {
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
-      child: UnlockScreen(
+      child: _unlocked
+          ? const ProductListScreen(key: ValueKey('catalog'))
+          : UnlockScreen(
         key: const ValueKey('unlock'),
         onUnlocked: () => setState(() => _unlocked = true),
       ),

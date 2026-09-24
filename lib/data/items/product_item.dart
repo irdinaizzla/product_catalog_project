@@ -1,5 +1,5 @@
-import 'item_data_api.dart';
-import 'product.dart';
+import '../api/item_data_api.dart';
+import '../models/product.dart';
 
 /// Provides access to product data, wrapping the raw API responses into typed [Product] and [ProductListResult] models.
 class ProductRepository {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'product.dart';
+import '../../data/models/product.dart';
 
 /// A tappable card that displays a product's thumbnail, title, and price.
 class ProductCard extends StatelessWidget {

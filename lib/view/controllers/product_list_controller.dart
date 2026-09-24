@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 
-import 'product.dart';
-import 'product_repository.dart';
+import '../../data/models/product.dart';
+import '../../data/items/product_item.dart';
 
 enum ViewState { loading, success, empty, error }
 

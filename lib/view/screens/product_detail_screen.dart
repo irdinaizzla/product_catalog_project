@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'product.dart';
-import 'product_repository.dart';
-import 'state_widgets.dart';
+import '../../data/models/product.dart';
+import '../../data/items/product_item.dart';
+import '../widgets/state_widgets.dart';
 
 /// Screen that fetches and displays the full details for a single product.
 class ProductDetailScreen extends StatefulWidget {

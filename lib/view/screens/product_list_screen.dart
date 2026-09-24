@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'product.dart';
-import 'product_list_controller.dart';
-import 'product_card.dart';
-import 'state_widgets.dart';
+import '../../data/models/product.dart';
+import '../controllers/product_list_controller.dart';
+import '../widgets/product_card.dart';
+import '../widgets/state_widgets.dart';
 import 'product_detail_screen.dart';
 
 /// Screen showing a searchable, infinite-scrolling list of products.
